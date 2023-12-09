@@ -90,11 +90,19 @@ if ($host_name == "localhost") {
     $live_url = 'http://localhost/maharashtraudyog.com';
     $cdn_url = 'http://localhost/backend.maharashtraudyog.com';
     $upload_path = 'C:/xampp/htdocs/backend.maharashtraudyog.com/public/uploads';
+    $db_host = "localhost";
+    $db_user = "root";
+    $db_pass = "";
+    $db_name = "maharashtraudyog";
 } else if ($host_name == "backend.maharashtraudyog.com") {
     $base_url = 'https://backend.maharashtraudyog.com';
     $live_url = 'https://maharashtraudyog.com';
     $cdn_url = 'https://cdn.maharashtraudyog.com';
     $upload_path = '/var/www/avni/cdn.maharashtraudyog.com/public/uploads';
+    $db_host = "localhost";
+    $db_user = "root";
+    $db_pass = "root@Avni$#1302";
+    $db_name = "maharashtraudyog";
 }
 
 define("BASE_URL", $base_url);
@@ -104,8 +112,8 @@ define("CDN_URL", $cdn_url);
 define('PAGINATION_PER_PAGE', 10);
 define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 define('APP_NAME', 'Maharashtra Udyog Backend | ');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'maharashtraudyog');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_HOST', $db_host);
+define('DB_NAME', $db_name);
+define('DB_USER', $db_user);
+define('DB_PASS', $db_pass);
 define('UPLOAD_DIR', $upload_path);
