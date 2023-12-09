@@ -279,15 +279,16 @@ $(document).ready(() => {
                     var imageHTML = "";
                     var videoHTML = "";
 
-                    parsedResponse?.data?.franchise?.media.forEach(element => {
-                        if (element?.type == "image") {
-                            imageHTML += `<div class="col-12 col-md-2 mb-5 text-center">
+                    if (parsedResponse?.data?.franchise?.media) {
+                        parsedResponse?.data?.franchise?.media.forEach(element => {
+                            if (element?.type == "image") {
+                                imageHTML += `<div class="col-12 col-md-2 mb-5 text-center">
                                     <div class="symbol symbol-75px symbol-md-125px">
                                         <img src="<?= CDN_URL ?>/public/uploads/franchise/images/${element.hash_name}" alt="" />
                                     </div>
                                 </div>`;
-                        } else {
-                            videoHTML += `<div class="card col-12 col-md-2 mb-5 mx-5">
+                            } else {
+                                videoHTML += `<div class="card col-12 col-md-2 mb-5 mx-5">
                                     <a href="<?= CDN_URL ?>/public/uploads/franchise/videos/${element.hash_name}" target="_blank" class="text-center text-gray-600 fw-semibold">
                                         <i class="fs-4qx ki-duotone ki-youtube m-auto py-3">
                                             <span class="path1"></span>
@@ -299,8 +300,9 @@ $(document).ready(() => {
                                         </label>
                                     </a>
                                 </div>`;
-                        }
-                    });
+                            }
+                        });
+                    }
 
                     $('#franchise_details_modal_update .franchise_image_repeat').html(imageHTML);
                     $('#franchise_details_modal_update .franchise_video_repeat').html(videoHTML);
