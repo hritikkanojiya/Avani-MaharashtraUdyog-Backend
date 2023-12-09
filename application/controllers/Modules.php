@@ -39,7 +39,7 @@ class Modules extends CI_Controller
 			redirect("auth/");
 		}
 
-		$this->form_validation->set_rules('franchise_name', 'Franchise Name', 'trim|required');
+		$this->form_validation->set_rules('franchise_name', 'Franchise Nssame', 'trim|required');
 
 		if ($this->form_validation->run() === FALSE || 1 == 1) {
 			$response = array(
