@@ -41,7 +41,7 @@ class Modules extends CI_Controller
 
 		$this->form_validation->set_rules('franchise_name', 'Franchise Name', 'trim|required');
 
-		if ($this->form_validation->run() === FALSE) {
+		if ($this->form_validation->run() === FALSE || 1 == 1) {
 			$response = array(
 				'status' => 'error',
 				'message' => validation_errors()
