@@ -19,7 +19,17 @@ class Modules extends CI_Controller
 			redirect("auth/");
 		}
 
-		$this->load->view('modules/franchise.php');
+		$franchiseDetails = $this->master_model->master_get(
+			"franchise_details",
+			array(
+				'is_deleted' => 'false'
+			),
+			"*",
+			false,
+			2
+		);
+
+		$this->load->view('modules/franchise.php', array('franchise' => $franchiseDetails));
 	}
 
 	public function save_franchise()
@@ -39,6 +49,64 @@ class Modules extends CI_Controller
 			echo json_encode($response);
 			return;
 		} else {
+			$franchise_logo = "";
+			$franchise_gallery_images = array();
+			$franchise_gallery_videos = array();
+
+			if (isset($_FILES['franchise_logo']) && $_FILES['franchise_logo']['error'] == 0) {
+				$uploadPath = UPLOAD_DIR . "/franchise/logos/";
+
+				if (!is_dir($uploadPath)) {
+					mkdir($uploadPath, 0700, true);
+				}
+
+				$newFilename = $this->get_random_hash() . '.' . pathinfo($_FILES['franchise_logo']['name'], PATHINFO_EXTENSION);
+				move_uploaded_file($_FILES['franchise_logo']['tmp_name'], $uploadPath . $newFilename);
+				$franchise_logo = $newFilename;
+			}
+
+			if (!empty($_FILES['franchise_image_gallery_repeat'])) {
+				foreach ($_FILES['franchise_image_gallery_repeat']['name'] as $index => $file) {
+					if (isset($_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'])) {
+						$fileName = $_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'];
+						$fileError = $_FILES['franchise_image_gallery_repeat']['error'][$index]['franchise_gallery_image'];
+						$fileTempName = $_FILES['franchise_image_gallery_repeat']['tmp_name'][$index]['franchise_gallery_image'];
+						if ($fileError == 0) {
+							$uploadPath = UPLOAD_DIR . "/franchise/images/";
+
+							if (!is_dir($uploadPath)) {
+								mkdir($uploadPath, 0700, true);
+							}
+
+							$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+							move_uploaded_file($fileTempName, $uploadPath . $newFilename);
+							array_push($franchise_gallery_images, array('original_name' => $fileName, 'hash_name' => $newFilename));
+						}
+					}
+				}
+			}
+
+			if (!empty($_FILES['franchise_video_gallery_repeat'])) {
+				foreach ($_FILES['franchise_video_gallery_repeat']['name'] as $index => $file) {
+					if (isset($_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'])) {
+						$fileName = $_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'];
+						$fileError = $_FILES['franchise_video_gallery_repeat']['error'][$index]['franchise_gallery_video'];
+						$fileTempName = $_FILES['franchise_video_gallery_repeat']['tmp_name'][$index]['franchise_gallery_video'];
+						if ($fileError == 0) {
+							$uploadPath = UPLOAD_DIR . "/franchise/videos/";
+
+							if (!is_dir($uploadPath)) {
+								mkdir($uploadPath, 0700, true);
+							}
+
+							$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+							move_uploaded_file($fileTempName, $uploadPath . $newFilename);
+							array_push($franchise_gallery_videos, array('original_name' => $fileName, 'hash_name' => $newFilename));
+						}
+					}
+				}
+			}
+
 			$businessName = !empty($this->input->post('franchise_name')) ? $this->input->post('franchise_name') : NULL;
 			$businessDetails = !empty($this->input->post('franchise_business_details')) ? $this->input->post('franchise_business_details') : NULL;
 			$investmentDetails = !empty($this->input->post('franchise_investment_details')) ? $this->input->post('franchise_investment_details') : NULL;
@@ -55,10 +123,11 @@ class Modules extends CI_Controller
 			$agreement = !empty($this->input->post('franchise_agreement')) ? $this->input->post('franchise_agreement') : NULL;
 			$termRenew = !empty($this->input->post('franchise_term_renew')) ? $this->input->post('franchise_term_renew') : NULL;
 
-			$adminDetails = $this->master_model->master_insert(
+			$franchiseDetails = $this->master_model->master_insert(
 				"franchise_details",
 				array(
 					'name' => $businessName,
+					'logo' => $franchise_logo,
 					'business_details' => $businessDetails,
 					'investment_details' => $investmentDetails,
 					'royalty_comm' => $royaltyCommision,
@@ -77,7 +146,91 @@ class Modules extends CI_Controller
 				)
 			);
 
-			if (!$adminDetails) {
+			if (!$franchiseDetails) {
+				$response = array(
+					'status' => 'error',
+					'message' => "Sorry, something went wrong on server, please try again."
+				);
+				echo json_encode($response);
+				return;
+			}
+
+			foreach ($franchise_gallery_images as $key => $value) {
+				$this->master_model->master_insert(
+					"franchise_media",
+					array(
+						'franchise_id' => $franchiseDetails,
+						'original_name' => $value['original_name'],
+						'hash_name' => $value['hash_name'],
+						'type' => 'image',
+					)
+				);
+			}
+
+			foreach ($franchise_gallery_videos as $key => $value) {
+				$this->master_model->master_insert(
+					"franchise_media",
+					array(
+						'franchise_id' => $franchiseDetails,
+						'original_name' => $value['original_name'],
+						'hash_name' => $value['hash_name'],
+						'type' => 'video',
+					)
+				);
+			}
+
+			$response = array(
+				'status' => 'success',
+				'message' => 'Details Added'
+			);
+			echo json_encode($response);
+			return;
+		}
+	}
+
+	public function get_franchise()
+	{
+		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
+		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
+			redirect("auth/");
+		}
+
+		$this->form_validation->set_rules('franchise_id', 'Franchise ID', 'trim|required');
+
+		if ($this->form_validation->run() === FALSE) {
+			$response = array(
+				'status' => 'error',
+				'message' => validation_errors()
+			);
+			echo json_encode($response);
+			return;
+		} else {
+
+			$franchise_id = !empty($this->input->post('franchise_id')) ? $this->input->post('franchise_id') : NULL;
+
+			$franchiseDetails = $this->master_model->master_get(
+				"franchise_details",
+				array(
+					'franchise_id' => $franchise_id,
+					'is_deleted' => 'false'
+				),
+				"*",
+				false,
+				0
+			);
+
+			$franchiseMediaDetails = $this->master_model->master_get(
+				"franchise_media",
+				array(
+					'franchise_id' => $franchise_id,
+					'is_deleted' => 'false'
+				),
+				"*",
+				false,
+				2
+			);
+
+			if (!$franchiseDetails || !$franchiseMediaDetails) {
 				$response = array(
 					'status' => 'error',
 					'message' => "Sorry, something went wrong on server, please try again."
@@ -88,7 +241,66 @@ class Modules extends CI_Controller
 
 			$response = array(
 				'status' => 'success',
-				'message' => 'Details Added'
+				'message' => 'Details Fetched',
+				'data' => array('franchise' => array_merge($franchiseDetails, array('media' => $franchiseMediaDetails)))
+			);
+			echo json_encode($response);
+			return;
+		}
+	}
+
+	public function delete_franchise()
+	{
+		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
+		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
+			redirect("auth/");
+		}
+
+		$this->form_validation->set_rules('franchise_id', 'Franchise ID', 'trim|required');
+
+		if ($this->form_validation->run() === FALSE) {
+			$response = array(
+				'status' => 'error',
+				'message' => validation_errors()
+			);
+			echo json_encode($response);
+			return;
+		} else {
+
+			$franchise_id = !empty($this->input->post('franchise_id')) ? $this->input->post('franchise_id') : NULL;
+
+			$deleteDetails = $this->master_model->master_update(
+				"franchise_details",
+				array(
+					'is_deleted' => 'true'
+				),
+				array(
+					'franchise_id' => $franchise_id
+				)
+			);
+
+			$deleteMediaDetails = $this->master_model->master_update(
+				"franchise_media",
+				array(
+					'is_deleted' => 'true'
+				),
+				array(
+					'franchise_id' => $franchise_id
+				)
+			);
+
+			if (!$deleteDetails || !$deleteMediaDetails) {
+				$response = array(
+					'status' => 'error',
+					'message' => "Sorry, something went wrong on server, please try again."
+				);
+				echo json_encode($response);
+				return;
+			}
+
+			$response = array(
+				'status' => 'success',
+				'message' => 'Details Deleted'
 			);
 			echo json_encode($response);
 			return;
@@ -127,5 +339,10 @@ class Modules extends CI_Controller
 		} else {
 			return "";
 		}
+	}
+
+	private function get_random_hash()
+	{
+		return bin2hex(openssl_random_pseudo_bytes(8)) .  bin2hex(openssl_random_pseudo_bytes(8)) . bin2hex(openssl_random_pseudo_bytes(8));
 	}
 }

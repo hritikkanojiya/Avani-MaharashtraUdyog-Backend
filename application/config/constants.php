@@ -88,11 +88,19 @@ if (isset($_SERVER['HTTP_HOST']) === TRUE) {
 if ($host_name == "localhost") {
     $base_url = 'http://localhost/backend.maharashtraudyog.com';
     $live_url = 'http://localhost/maharashtraudyog.com';
+    $cdn_url = 'http://localhost/backend.maharashtraudyog.com';
+    $upload_path = 'C:/xampp/htdocs/backend.maharashtraudyog.com/public/uploads';
+} else if ($host_name == "backend.maharashtraudyog.com") {
+    $base_url = 'https://backend.maharashtraudyog.com';
+    $live_url = 'https://maharashtraudyog.com';
+    $cdn_url = 'https://cdn.maharashtraudyog.com';
+    $upload_path = '/var/www/avni/cdn.maharashtraudyog.com/public/uploads';
 }
 
 define("BASE_URL", $base_url);
 define("LIVE_URL", $live_url);
-define("ASSETS_URL", $base_url . "/public");
+define("PUBLIC_ASSETS_URL", $base_url . "/public");
+define("CDN_URL", $cdn_url);
 define('PAGINATION_PER_PAGE', 10);
 define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 define('APP_NAME', 'Maharashtra Udyog Backend | ');
@@ -100,3 +108,4 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'maharashtraudyog');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+define('UPLOAD_DIR', $upload_path);
