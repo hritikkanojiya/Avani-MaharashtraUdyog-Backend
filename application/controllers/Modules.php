@@ -48,8 +48,7 @@ class Modules extends CI_Controller
 		Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
 
 		$requestHost = $this->input->server('HTTP_HOST');
-		$allowedHost = 'maharashtraudyog.com';
-
+		$allowedHost = 'backend.maharashtraudyog.com';
 
 		if ($requestHost != $allowedHost) {
 			$response = array(
