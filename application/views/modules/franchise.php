@@ -206,7 +206,7 @@ $adminDetails = $this->session->userdata('admin_details');
                                                         class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                                 </div>
                                                 <a href="#"
-                                                    class="fw-semibold text-muted text-hover-primary fs-7"><?= $adminDetails['email'] ?></a>
+                                                    class="fw-semibold text-muted text-hover-primary text-truncate fs-7"><?= $adminDetails['email'] ?></a>
                                             </div>
                                         </div>
                                     </div>
@@ -346,45 +346,47 @@ $adminDetails = $this->session->userdata('admin_details');
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $tableDom = "";
-                                            foreach ($franchise as $key => $value) {
-                                                $tableDom .=  "<tr>";
-                                                $tableDom .=  "<td class='text-truncate mw-100px mw-lg-150px'>" . $value['name'] . "</td>";
-                                                $tableDom .=  "<td class='text-center'>
-                                                                <div class='symbol symbol-25px'>                                                   
-                                                                    <img src='" . CDN_URL . '/public/uploads/franchise/logos/' .  $value['logo'] . "' class='img-fluid'>                                                  
-                                                                </div>
-                                                              </td>";
-                                                $tableDom .=  "<td class='text-truncate mw-100px mw-lg-250px'>" . $value['business_details'] . "</td>";
-                                                $tableDom .=  "<td class='text-truncate mw-100px mw-lg-250px'>" . $value['investment_details'] . "</td>";
-                                                $tableDom .=  "<td>" . (new DateTime($value['created_at']))->format('Y-m-d h:i:s A') . "</td>";
-                                                $tableDom .=  "<td class='d-flex justify-content-evenly'>";
-                                                $tableDom .=  " <a href='#' class='btn btn-icon btn-primary btn-sm viewData' data-franchise-id=" . $value['franchise_id'] . ">
-                                                                    <i class='ki-duotone ki-eye'>
-                                                                        <span class='path1'></span>
-                                                                        <span class='path2'></span>
-                                                                        <span class='path3'></span>
-                                                                    </i>
-                                                                </a>
-                                                                <a href='#' class='btn btn-icon btn-warning btn-sm editData'  data-franchise-id=" . $value['franchise_id'] . ">
-                                                                    <i class='ki-duotone ki-pencil'>
-                                                                        <span class='path1'></span>
-                                                                        <span class='path2'></span>
-                                                                    </i>
-                                                                </a>
-                                                                <a href='#' class='btn btn-icon btn-danger btn-sm deleteData'  data-franchise-id=" . $value['franchise_id'] . ">
-                                                                    <i class='ki-duotone ki-trash'>
-                                                                        <span class='path1'></span>
-                                                                        <span class='path2'></span>
-                                                                        <span class='path3'></span>
-                                                                        <span class='path4'></span>
-                                                                        <span class='path5'></span>
-                                                                    </i>
-                                                                </a>";
-                                                $tableDom .=  "</td>";
-                                                $tableDom .=  "</tr>";
+                                            if (isset($franchise) && is_array($franchise) && count($franchise) > 0) {
+                                                $tableDom = "";
+                                                foreach ($franchise as $key => $value) {
+                                                    $tableDom .=  "<tr>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-150px'>" . $value['name'] . "</td>";
+                                                    $tableDom .=  "<td class='text-center'>
+                                                                    <div class='symbol symbol-25px'>                                                   
+                                                                        <img src='" . CDN_URL . '/public/uploads/franchise/logos/' .  $value['logo'] . "' class='img-fluid'>                                                  
+                                                                    </div>
+                                                                  </td>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-250px'>" . $value['business_details'] . "</td>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-250px'>" . $value['investment_details'] . "</td>";
+                                                    $tableDom .=  "<td>" . (new DateTime($value['created_at']))->format('Y-m-d h:i:s A') . "</td>";
+                                                    $tableDom .=  "<td class='d-flex justify-content-evenly'>";
+                                                    $tableDom .=  " <a href='#' class='btn btn-icon btn-primary btn-sm viewData' data-franchise-id=" . $value['franchise_id'] . ">
+                                                                        <i class='ki-duotone ki-eye'>
+                                                                            <span class='path1'></span>
+                                                                            <span class='path2'></span>
+                                                                            <span class='path3'></span>
+                                                                        </i>
+                                                                    </a>
+                                                                    <a href='#' class='btn btn-icon btn-warning btn-sm editData'  data-franchise-id=" . $value['franchise_id'] . ">
+                                                                        <i class='ki-duotone ki-pencil'>
+                                                                            <span class='path1'></span>
+                                                                            <span class='path2'></span>
+                                                                        </i>
+                                                                    </a>
+                                                                    <a href='#' class='btn btn-icon btn-danger btn-sm deleteData'  data-franchise-id=" . $value['franchise_id'] . ">
+                                                                        <i class='ki-duotone ki-trash'>
+                                                                            <span class='path1'></span>
+                                                                            <span class='path2'></span>
+                                                                            <span class='path3'></span>
+                                                                            <span class='path4'></span>
+                                                                            <span class='path5'></span>
+                                                                        </i>
+                                                                    </a>";
+                                                    $tableDom .=  "</td>";
+                                                    $tableDom .=  "</tr>";
+                                                }
+                                                echo $tableDom;
                                             }
-                                            echo $tableDom;
                                             ?>
                                         </tbody>
                                     </table>
