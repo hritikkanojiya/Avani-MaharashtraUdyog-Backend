@@ -39,153 +39,153 @@ class Modules extends CI_Controller
 			redirect("auth/");
 		}
 
-		$this->form_validation->set_rules('franchise_name', 'Franchise Nssame', 'trim|required');
+		// $this->form_validation->set_rules('franchise_name', 'Franchise Name', 'trim|required');
 
-		if ($this->form_validation->run() === FALSE || 1 == 1) {
+		// if ($this->form_validation->run() === FALSE) {
+		// 	$response = array(
+		// 		'status' => 'error',
+		// 		'message' => validation_errors()
+		// 	);
+		// 	echo json_encode($response);
+		// 	return;
+		// } else {
+		$franchise_logo = "";
+		$franchise_gallery_images = array();
+		$franchise_gallery_videos = array();
+
+		if (isset($_FILES['franchise_logo']) && $_FILES['franchise_logo']['error'] == 0) {
+			$uploadPath = UPLOAD_DIR . "/franchise/logos/";
+
+			if (!is_dir($uploadPath)) {
+				mkdir($uploadPath, 0700, true);
+			}
+
+			$newFilename = $this->get_random_hash() . '.' . pathinfo($_FILES['franchise_logo']['name'], PATHINFO_EXTENSION);
+			move_uploaded_file($_FILES['franchise_logo']['tmp_name'], $uploadPath . $newFilename);
+			$franchise_logo = $newFilename;
+		}
+
+		if (!empty($_FILES['franchise_image_gallery_repeat'])) {
+			foreach ($_FILES['franchise_image_gallery_repeat']['name'] as $index => $file) {
+				if (isset($_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'])) {
+					$fileName = $_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'];
+					$fileError = $_FILES['franchise_image_gallery_repeat']['error'][$index]['franchise_gallery_image'];
+					$fileTempName = $_FILES['franchise_image_gallery_repeat']['tmp_name'][$index]['franchise_gallery_image'];
+					if ($fileError == 0) {
+						$uploadPath = UPLOAD_DIR . "/franchise/images/";
+
+						if (!is_dir($uploadPath)) {
+							mkdir($uploadPath, 0700, true);
+						}
+
+						$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+						move_uploaded_file($fileTempName, $uploadPath . $newFilename);
+						array_push($franchise_gallery_images, array('original_name' => $fileName, 'hash_name' => $newFilename));
+					}
+				}
+			}
+		}
+
+		if (!empty($_FILES['franchise_video_gallery_repeat'])) {
+			foreach ($_FILES['franchise_video_gallery_repeat']['name'] as $index => $file) {
+				if (isset($_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'])) {
+					$fileName = $_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'];
+					$fileError = $_FILES['franchise_video_gallery_repeat']['error'][$index]['franchise_gallery_video'];
+					$fileTempName = $_FILES['franchise_video_gallery_repeat']['tmp_name'][$index]['franchise_gallery_video'];
+					if ($fileError == 0) {
+						$uploadPath = UPLOAD_DIR . "/franchise/videos/";
+
+						if (!is_dir($uploadPath)) {
+							mkdir($uploadPath, 0700, true);
+						}
+
+						$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+						move_uploaded_file($fileTempName, $uploadPath . $newFilename);
+						array_push($franchise_gallery_videos, array('original_name' => $fileName, 'hash_name' => $newFilename));
+					}
+				}
+			}
+		}
+
+		$businessName = !empty($this->input->post('franchise_name')) ? $this->input->post('franchise_name') : NULL;
+		$businessDetails = !empty($this->input->post('franchise_business_details')) ? $this->input->post('franchise_business_details') : NULL;
+		$investmentDetails = !empty($this->input->post('franchise_investment_details')) ? $this->input->post('franchise_investment_details') : NULL;
+		$royaltyCommision = !empty($this->input->post('franchise_royalty_comm')) ? $this->input->post('franchise_royalty_comm') : NULL;
+		$roi = !empty($this->input->post('franchise_roi')) ? $this->input->post('franchise_roi') : NULL;
+		$payback = !empty($this->input->post('franchise_payback')) ? $this->input->post('franchise_payback') : NULL;
+		$property = !empty($this->input->post('franchise_property')) ? $this->input->post('franchise_property') : NULL;
+		$floorArea = !empty($this->input->post('franchise_floor_area')) ? $this->input->post('franchise_floor_area') : NULL;
+		$prefLocation = !empty($this->input->post('franchise_pref_location')) ? $this->input->post('franchise_pref_location') : NULL;
+		$operatingManual = !empty($this->input->post('franchise_operating_manual')) ? $this->input->post('franchise_operating_manual') : NULL;
+		$trainingLoc = !empty($this->input->post('franchise_training_loc')) ? $this->input->post('franchise_training_loc') : NULL;
+		$termDuration = !empty($this->input->post('franchise_term_duration')) ? $this->input->post('franchise_term_duration') : NULL;
+		$fieldAssistant = !empty($this->input->post('franchise_field_assistant')) ? $this->input->post('franchise_field_assistant') : NULL;
+		$agreement = !empty($this->input->post('franchise_agreement')) ? $this->input->post('franchise_agreement') : NULL;
+		$termRenew = !empty($this->input->post('franchise_term_renew')) ? $this->input->post('franchise_term_renew') : NULL;
+
+		$franchiseDetails = $this->master_model->master_insert(
+			"franchise_details",
+			array(
+				'name' => $businessName,
+				'logo' => $franchise_logo,
+				'business_details' => $businessDetails,
+				'investment_details' => $investmentDetails,
+				'royalty_comm' => $royaltyCommision,
+				'roi' => $roi,
+				'payback' => $payback,
+				'property' => $property,
+				'floorarea' => $floorArea,
+				'pref_loc' => $prefLocation,
+				'operating_manual' => $operatingManual,
+				'training_loc' => $trainingLoc,
+				'term_duration' => $termDuration,
+				'field_assistant' => $fieldAssistant,
+				'agreement' => $agreement,
+				'term_renew' => $termRenew,
+				'is_deleted' => 'false'
+			)
+		);
+
+		if (!$franchiseDetails) {
 			$response = array(
 				'status' => 'error',
-				'message' => validation_errors()
-			);
-			echo json_encode($response);
-			return;
-		} else {
-			$franchise_logo = "";
-			$franchise_gallery_images = array();
-			$franchise_gallery_videos = array();
-
-			if (isset($_FILES['franchise_logo']) && $_FILES['franchise_logo']['error'] == 0) {
-				$uploadPath = UPLOAD_DIR . "/franchise/logos/";
-
-				if (!is_dir($uploadPath)) {
-					mkdir($uploadPath, 0700, true);
-				}
-
-				$newFilename = $this->get_random_hash() . '.' . pathinfo($_FILES['franchise_logo']['name'], PATHINFO_EXTENSION);
-				move_uploaded_file($_FILES['franchise_logo']['tmp_name'], $uploadPath . $newFilename);
-				$franchise_logo = $newFilename;
-			}
-
-			if (!empty($_FILES['franchise_image_gallery_repeat'])) {
-				foreach ($_FILES['franchise_image_gallery_repeat']['name'] as $index => $file) {
-					if (isset($_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'])) {
-						$fileName = $_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'];
-						$fileError = $_FILES['franchise_image_gallery_repeat']['error'][$index]['franchise_gallery_image'];
-						$fileTempName = $_FILES['franchise_image_gallery_repeat']['tmp_name'][$index]['franchise_gallery_image'];
-						if ($fileError == 0) {
-							$uploadPath = UPLOAD_DIR . "/franchise/images/";
-
-							if (!is_dir($uploadPath)) {
-								mkdir($uploadPath, 0700, true);
-							}
-
-							$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-							move_uploaded_file($fileTempName, $uploadPath . $newFilename);
-							array_push($franchise_gallery_images, array('original_name' => $fileName, 'hash_name' => $newFilename));
-						}
-					}
-				}
-			}
-
-			if (!empty($_FILES['franchise_video_gallery_repeat'])) {
-				foreach ($_FILES['franchise_video_gallery_repeat']['name'] as $index => $file) {
-					if (isset($_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'])) {
-						$fileName = $_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'];
-						$fileError = $_FILES['franchise_video_gallery_repeat']['error'][$index]['franchise_gallery_video'];
-						$fileTempName = $_FILES['franchise_video_gallery_repeat']['tmp_name'][$index]['franchise_gallery_video'];
-						if ($fileError == 0) {
-							$uploadPath = UPLOAD_DIR . "/franchise/videos/";
-
-							if (!is_dir($uploadPath)) {
-								mkdir($uploadPath, 0700, true);
-							}
-
-							$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-							move_uploaded_file($fileTempName, $uploadPath . $newFilename);
-							array_push($franchise_gallery_videos, array('original_name' => $fileName, 'hash_name' => $newFilename));
-						}
-					}
-				}
-			}
-
-			$businessName = !empty($this->input->post('franchise_name')) ? $this->input->post('franchise_name') : NULL;
-			$businessDetails = !empty($this->input->post('franchise_business_details')) ? $this->input->post('franchise_business_details') : NULL;
-			$investmentDetails = !empty($this->input->post('franchise_investment_details')) ? $this->input->post('franchise_investment_details') : NULL;
-			$royaltyCommision = !empty($this->input->post('franchise_royalty_comm')) ? $this->input->post('franchise_royalty_comm') : NULL;
-			$roi = !empty($this->input->post('franchise_roi')) ? $this->input->post('franchise_roi') : NULL;
-			$payback = !empty($this->input->post('franchise_payback')) ? $this->input->post('franchise_payback') : NULL;
-			$property = !empty($this->input->post('franchise_property')) ? $this->input->post('franchise_property') : NULL;
-			$floorArea = !empty($this->input->post('franchise_floor_area')) ? $this->input->post('franchise_floor_area') : NULL;
-			$prefLocation = !empty($this->input->post('franchise_pref_location')) ? $this->input->post('franchise_pref_location') : NULL;
-			$operatingManual = !empty($this->input->post('franchise_operating_manual')) ? $this->input->post('franchise_operating_manual') : NULL;
-			$trainingLoc = !empty($this->input->post('franchise_training_loc')) ? $this->input->post('franchise_training_loc') : NULL;
-			$termDuration = !empty($this->input->post('franchise_term_duration')) ? $this->input->post('franchise_term_duration') : NULL;
-			$fieldAssistant = !empty($this->input->post('franchise_field_assistant')) ? $this->input->post('franchise_field_assistant') : NULL;
-			$agreement = !empty($this->input->post('franchise_agreement')) ? $this->input->post('franchise_agreement') : NULL;
-			$termRenew = !empty($this->input->post('franchise_term_renew')) ? $this->input->post('franchise_term_renew') : NULL;
-
-			$franchiseDetails = $this->master_model->master_insert(
-				"franchise_details",
-				array(
-					'name' => $businessName,
-					'logo' => $franchise_logo,
-					'business_details' => $businessDetails,
-					'investment_details' => $investmentDetails,
-					'royalty_comm' => $royaltyCommision,
-					'roi' => $roi,
-					'payback' => $payback,
-					'property' => $property,
-					'floorarea' => $floorArea,
-					'pref_loc' => $prefLocation,
-					'operating_manual' => $operatingManual,
-					'training_loc' => $trainingLoc,
-					'term_duration' => $termDuration,
-					'field_assistant' => $fieldAssistant,
-					'agreement' => $agreement,
-					'term_renew' => $termRenew,
-					'is_deleted' => 'false'
-				)
-			);
-
-			if (!$franchiseDetails) {
-				$response = array(
-					'status' => 'error',
-					'message' => "Sorry, something went wrong on server, please try again."
-				);
-				echo json_encode($response);
-				return;
-			}
-
-			foreach ($franchise_gallery_images as $key => $value) {
-				$this->master_model->master_insert(
-					"franchise_media",
-					array(
-						'franchise_id' => $franchiseDetails,
-						'original_name' => $value['original_name'],
-						'hash_name' => $value['hash_name'],
-						'type' => 'image',
-					)
-				);
-			}
-
-			foreach ($franchise_gallery_videos as $key => $value) {
-				$this->master_model->master_insert(
-					"franchise_media",
-					array(
-						'franchise_id' => $franchiseDetails,
-						'original_name' => $value['original_name'],
-						'hash_name' => $value['hash_name'],
-						'type' => 'video',
-					)
-				);
-			}
-
-			$response = array(
-				'status' => 'success',
-				'message' => 'Details Added'
+				'message' => "Sorry, something went wrong on server, please try again."
 			);
 			echo json_encode($response);
 			return;
 		}
+
+		foreach ($franchise_gallery_images as $key => $value) {
+			$this->master_model->master_insert(
+				"franchise_media",
+				array(
+					'franchise_id' => $franchiseDetails,
+					'original_name' => $value['original_name'],
+					'hash_name' => $value['hash_name'],
+					'type' => 'image',
+				)
+			);
+		}
+
+		foreach ($franchise_gallery_videos as $key => $value) {
+			$this->master_model->master_insert(
+				"franchise_media",
+				array(
+					'franchise_id' => $franchiseDetails,
+					'original_name' => $value['original_name'],
+					'hash_name' => $value['hash_name'],
+					'type' => 'video',
+				)
+			);
+		}
+
+		$response = array(
+			'status' => 'success',
+			'message' => 'Details Added'
+		);
+		echo json_encode($response);
+		return;
+		// }
 	}
 
 	public function get_franchise()
