@@ -43,6 +43,10 @@ class Modules extends CI_Controller
 
 	public function get_all_franchise()
 	{
+		Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
+		Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
+		Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
+
 		$requestHost = $this->input->server('HTTP_HOST');
 		$allowedHost = 'maharashtraudyog.com';
 
