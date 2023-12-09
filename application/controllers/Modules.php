@@ -41,6 +41,75 @@ class Modules extends CI_Controller
 		$this->load->view('modules/franchise.php', array('franchise' => $franchiseDetails));
 	}
 
+	public function get_all_franchise()
+	{
+		$requestHost = $this->input->server('HTTP_HOST');
+		$allowedHost = 'maharashtraudyog.com';
+
+		if ($requestHost != $allowedHost) {
+			$response = array(
+				'status' => 'error',
+				'message' => "Invalid Request"
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		$franchiseDetails = $this->master_model->master_get(
+			"franchise_details",
+			array(
+				'is_deleted' => 'false'
+			),
+			"*",
+			false,
+			2,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			'franchise_id',
+			'desc'
+		);
+
+		if (!$franchiseDetails) {
+			$response = array(
+				'status' => 'error',
+				'message' => "Sorry, something went wrong on server, please try again."
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		foreach ($franchiseDetails as $key => $value) {
+			$franchiseDetails[$key]['media'] = array();
+
+			$franchiseMediaDetails = $this->master_model->master_get(
+				"franchise_media",
+				array(
+					'franchise_id' => $value['franchise_id'],
+					'is_deleted' => 'false'
+				),
+				"*",
+				false,
+				2
+			);
+
+			if ($franchiseMediaDetails)
+				$franchiseDetails[$key]['media'] = $franchiseMediaDetails;
+		}
+
+		$response = array(
+			'status' => 'success',
+			'message' => "Details Fetched",
+			'franchise' => $franchiseDetails
+		);
+		echo json_encode($response);
+		return;
+	}
+
 	public function save_franchise()
 	{
 		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
