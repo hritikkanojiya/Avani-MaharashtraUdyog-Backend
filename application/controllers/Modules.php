@@ -108,6 +108,7 @@ class Modules extends CI_Controller
 			}
 
 			$businessName = !empty($this->input->post('franchise_name')) ? $this->input->post('franchise_name') : NULL;
+			$details = !empty($this->input->post('franchise_details')) ? $this->input->post('franchise_details') : NULL;
 			$businessDetails = !empty($this->input->post('franchise_business_details')) ? $this->input->post('franchise_business_details') : NULL;
 			$investmentDetails = !empty($this->input->post('franchise_investment_details')) ? $this->input->post('franchise_investment_details') : NULL;
 			$royaltyCommision = !empty($this->input->post('franchise_royalty_comm')) ? $this->input->post('franchise_royalty_comm') : NULL;
@@ -127,6 +128,7 @@ class Modules extends CI_Controller
 				"franchise_details",
 				array(
 					'name' => $businessName,
+					'franchise_details' => $details,
 					'logo' => $franchise_logo,
 					'business_details' => $businessDetails,
 					'investment_details' => $investmentDetails,
@@ -329,6 +331,7 @@ class Modules extends CI_Controller
 
 			$franchise_id_update = !empty($this->input->post('franchise_id_update')) ? $this->input->post('franchise_id_update') : NULL;
 			$businessName = !empty($this->input->post('franchise_name')) ? $this->input->post('franchise_name') : NULL;
+			$details = !empty($this->input->post('franchise_details')) ? $this->input->post('franchise_details') : NULL;
 			$businessDetails = !empty($this->input->post('franchise_business_details')) ? $this->input->post('franchise_business_details') : NULL;
 			$investmentDetails = !empty($this->input->post('franchise_investment_details')) ? $this->input->post('franchise_investment_details') : NULL;
 			$royaltyCommision = !empty($this->input->post('franchise_royalty_comm')) ? $this->input->post('franchise_royalty_comm') : NULL;
@@ -346,6 +349,7 @@ class Modules extends CI_Controller
 
 			$arrayToUpdate = array(
 				'name' => $businessName,
+				'franchise_details' => $details,
 				'business_details' => $businessDetails,
 				'investment_details' => $investmentDetails,
 				'royalty_comm' => $royaltyCommision,

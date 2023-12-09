@@ -27,7 +27,7 @@
                             name="franchise_name" disabled />
                     </div>
                     <div class="row mb-5 fv-row">
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-3">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">Franchise Logo</span>
                             </label>
@@ -38,7 +38,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-5 fv-row">
+                        <div class="col-12 col-md-9 fv-row">
+                            <label class="fs-6 fw-semibold mb-2 required">Franchise Details</label>
+                            <div class="py-2 mt-0">
+                                <textarea class="form-control" name="franchise_details" maxlength="2048"
+                                    data-kt-autosize="true" rows="5" id="franchise_details"
+                                    placeholder="Franchise Details" disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12 col-md-6 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Business Details</label>
                             <div class="py-2 mt-0">
                                 <textarea class="form-control" name="franchise_business_details" maxlength="2048"
@@ -46,7 +56,7 @@
                                     placeholder="Business Details" disabled></textarea>
                             </div>
                         </div>
-                        <div class="col-12 col-md-5 fv-row">
+                        <div class="col-12 col-md-6 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Investment Details</label>
                             <div class="py-2 mt-0">
                                 <textarea class="form-control" name="franchise_investment_details" maxlength="2048"

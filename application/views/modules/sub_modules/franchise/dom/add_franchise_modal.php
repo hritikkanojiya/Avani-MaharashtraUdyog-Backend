@@ -28,7 +28,7 @@
                             name="franchise_name" />
                     </div>
                     <div class="row mb-5 fv-row">
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-3">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">Franchise Logo</span>
                             </label>
@@ -62,7 +62,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-5 fv-row">
+                        <div class="col-12 col-md-9 fv-row">
+                            <label class="fs-6 fw-semibold mb-2 required">Franchise Details</label>
+                            <div class="py-2 mt-0">
+                                <textarea class="form-control" name="franchise_details" maxlength="2048"
+                                    data-kt-autosize="true" rows="5" id="franchise_details"
+                                    placeholder="Franchise Details"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12 col-md-6 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Business Details</label>
                             <div class="py-2 mt-0">
                                 <textarea class="form-control" name="franchise_business_details" maxlength="2048"
@@ -70,7 +80,7 @@
                                     placeholder="Business Details"></textarea>
                             </div>
                         </div>
-                        <div class="col-12 col-md-5 fv-row">
+                        <div class="col-12 col-md-6 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Investment Details</label>
                             <div class="py-2 mt-0">
                                 <textarea class="form-control" name="franchise_investment_details" maxlength="2048"
@@ -257,10 +267,6 @@
                     <div class="row mb-5 fv-row">
                         <div class="col-12 col-md-9">
                             <label class="fs-6 fw-semibold required">Is the field assistant available</label>
-                            <div class="fs-7 fw-semibold text-muted">Lorem ipsum dolor sit amet
-                                consectetur
-                                adipisicing elit
-                            </div>
                         </div>
                         <div class="col-12 col-md-3 text-center">
                             <label
@@ -275,9 +281,6 @@
                     <div class="row mb-5 fv-row">
                         <div class="col-12 col-md-9">
                             <label class="fs-6 fw-semibold required">Does the franchise have an Agreement</label>
-                            <div class="fs-7 fw-semibold text-muted">Lorem ipsum dolor sit amet
-                                consectetur
-                                adipisicing elit</div>
                         </div>
                         <div class="col-12 col-md-3 text-center">
                             <label
@@ -292,9 +295,6 @@
                     <div class="row mb-5 fv-row">
                         <div class="col-12 col-md-9">
                             <label class="fs-6 fw-semibold required">Can the term be renewed later</label>
-                            <div class="fs-7 fw-semibold text-muted">Lorem ipsum dolor sit amet
-                                consectetur
-                                adipisicing elit</div>
                         </div>
                         <div class="col-12 col-md-3 text-center">
                             <label
