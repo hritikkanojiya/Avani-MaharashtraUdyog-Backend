@@ -26,7 +26,16 @@ class Modules extends CI_Controller
 			),
 			"*",
 			false,
-			2
+			2,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			'franchise_id',
+			'desc'
 		);
 
 		$this->load->view('modules/franchise.php', array('franchise' => $franchiseDetails));
