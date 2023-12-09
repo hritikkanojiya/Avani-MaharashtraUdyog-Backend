@@ -84,7 +84,7 @@
                             <div class="row mb-5">
                                 <div class="col-12 col-md-10">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                        <span class="required">Franchise Image Gallery</span>
+                                        <span class="">Franchise Image Gallery</span>
                                     </label>
                                 </div>
                                 <div class="col-12 col-md-2 text-end">
@@ -144,7 +144,7 @@
                             <div class="row mb-5">
                                 <div class="col-12 col-md-10">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                        <span class="required">Franchise Video Gallery</span>
+                                        <span class="">Franchise Video Gallery</span>
                                     </label>
                                 </div>
                                 <div class="col-12 col-md-2 text-end">

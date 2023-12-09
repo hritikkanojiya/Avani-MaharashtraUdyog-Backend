@@ -1,11 +1,11 @@
 <script>
 $(document).ready(() => {
 
-    var franchiseFormDomElement = document.getElementById('franchise_add_details_form');
-    var franchiseForm = $("#franchise_add_details_form");
-    var franchiseFormSubmitBtn = $("#submit_franchise_details");
+    var addFranchiseFormDomElement = document.getElementById('franchise_add_details_form');
+    var addFranchiseForm = $("#franchise_add_details_form");
+    var addFranchiseFormSubmitBtn = $("#submit_franchise_details");
 
-    franchiseFormValidation = FormValidation.formValidation(franchiseForm[0], {
+    addFranchiseFormValidation = FormValidation.formValidation(addFranchiseForm[0], {
         fields: {
             franchise_name: {
                 validators: {
@@ -123,20 +123,20 @@ $(document).ready(() => {
         },
     });
 
-    franchiseFormSubmitBtn.on("click", function(event) {
+    addFranchiseFormSubmitBtn.on("click", function(event) {
         event.preventDefault();
-        franchiseFormValidation
+        addFranchiseFormValidation
             .validate()
             .then(function(status) {
                 if (status === 'Valid') {
-                    franchiseFormSubmitBtn
+                    addFranchiseFormSubmitBtn
                         .attr('data-kt-indicator', 'on')
                         .prop('disabled', true);
                     $.ajax({
-                            url: franchiseForm.closest('form').attr(
+                            url: addFranchiseForm.closest('form').attr(
                                 'action'),
                             type: 'POST',
-                            data: new FormData(franchiseFormDomElement),
+                            data: new FormData(addFranchiseFormDomElement),
                             processData: false,
                             contentType: false,
                             cache: false,
@@ -171,7 +171,7 @@ $(document).ready(() => {
                                     }
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        franchiseForm[0].reset();
+                                        addFranchiseForm[0].reset();
                                         location.reload()
                                     }
                                 });
@@ -199,7 +199,7 @@ $(document).ready(() => {
                             });
                         })
                         .always(function() {
-                            franchiseFormSubmitBtn.removeAttr('data-kt-indicator')
+                            addFranchiseFormSubmitBtn.removeAttr('data-kt-indicator')
                                 .prop('disabled', false);
                         });
                 } else {
