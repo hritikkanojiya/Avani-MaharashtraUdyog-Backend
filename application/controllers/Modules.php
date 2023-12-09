@@ -232,7 +232,7 @@ class Modules extends CI_Controller
 				2
 			);
 
-			if (!$franchiseDetails || !$franchiseMediaDetails) {
+			if (!$franchiseDetails) {
 				$response = array(
 					'status' => 'error',
 					'message' => "Sorry, something went wrong on server, please try again."
