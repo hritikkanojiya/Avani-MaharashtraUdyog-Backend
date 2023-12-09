@@ -206,7 +206,7 @@ $adminDetails = $this->session->userdata('admin_details');
                                                         class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                                 </div>
                                                 <a href="#"
-                                                    class="fw-semibold text-muted text-hover-primary text-truncate fs-7"><?= $adminDetails['email'] ?></a>
+                                                    class="fw-semibold text-muted text-hover-primary text-truncate mw-175px fs-7"><?= $adminDetails['email'] ?></a>
                                             </div>
                                         </div>
                                     </div>
