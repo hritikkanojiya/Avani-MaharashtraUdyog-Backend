@@ -323,15 +323,26 @@ $adminDetails = $this->session->userdata('admin_details');
                                         <li class="breadcrumb-item text-muted">Franchise</li>
                                     </ul>
                                 </div>
-                                <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                    <a href="#" class="btn fw-bold btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#franchise_details_modal_add">Add Franchise</a>
-                                </div>
+
                             </div>
                         </div>
                         <div id="kt_app_content" class="app-content flex-column-fluid">
                             <div id="kt_app_content_container" class="app-container container-fluid">
                                 <div class="row gx-5 gx-xl-10 card pt-5 table-responsive">
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <div class="d-flex align-items-center justify-content-start position-relative">
+                                            <span class="svg-icon fs-1 position-absolute ms-4">
+                                                <i class="ki-duotone ki-abstract-33 fs-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i></span>
+                                            <input type="text" data-kt-filter="search"
+                                                class="form-control form-control-solid bg-gray-200i w-md-350px ps-14"
+                                                placeholder="Search Table" />
+                                        </div>
+                                        <a href="#" class="btn fw-bold btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#franchise_details_modal_add">Add Franchise</a>
+                                    </div>
                                     <table id="kt_datatable_fixed_header"
                                         class="table border table-rounded table-row-dashed table-hover gy-5 gs-7">
                                         <thead class="bg-gray-200 fw-bold">
@@ -411,6 +422,7 @@ $adminDetails = $this->session->userdata('admin_details');
 
     <?php $this->view('modules/sub_modules/franchise/dom/add_franchise_modal.php') ?>
     <?php $this->view('modules/sub_modules/franchise/dom/view_franchise_modal.php') ?>
+    <?php $this->view('modules/sub_modules/franchise/dom/update_franchise_modal.php') ?>
 
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <i class="ki-duotone ki-arrow-up">
@@ -477,13 +489,23 @@ $adminDetails = $this->session->userdata('admin_details');
             $('.fv-plugins-message-container').html('')
         })
 
-        $("#kt_datatable_fixed_header").DataTable({
+        var franchiseTableDT = $("#kt_datatable_fixed_header").DataTable({
             "fixedHeader": {
                 "header": true,
                 "headerOffset": 5
             },
             "scrollY": 300,
-            "scrollX": true
+            "scrollX": true,
+            pageLength: 10,
+            filter: true,
+            deferRender: true,
+            scrollCollapse: true,
+            "searching": true,
+        });
+
+        const filterSearch = document.querySelector('[data-kt-filter="search"]');
+        filterSearch.addEventListener('keyup', function(e) {
+            franchiseTableDT.search(e.target.value).draw();
         });
     })
     </script>
