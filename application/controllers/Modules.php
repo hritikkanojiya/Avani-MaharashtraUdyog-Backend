@@ -50,6 +50,9 @@ class Modules extends CI_Controller
 		$requestHost = $this->input->server('HTTP_HOST');
 		$allowedHost = 'maharashtraudyog.com';
 
+		echo $requestHost;
+		die();
+
 		if ($requestHost != $allowedHost) {
 			$response = array(
 				'status' => 'error',
