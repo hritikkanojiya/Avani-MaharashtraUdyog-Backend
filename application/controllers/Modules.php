@@ -161,8 +161,6 @@ class Modules extends CI_Controller
 			'desc'
 		);
 
-		echo $this->db->last_query();
-
 		if (!$franchiseDetails) {
 			$response = array(
 				'status' => 'error',
