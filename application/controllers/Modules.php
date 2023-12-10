@@ -132,7 +132,7 @@ class Modules extends CI_Controller
 			return;
 		}
 
-		if (!isset(($_GET['franchise_id']))) {
+		if (!isset($_GET['franchise_id'])) {
 			$response = array(
 				'status' => 'error',
 				'message' => "Invalid Request"
