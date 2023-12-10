@@ -144,7 +144,7 @@ class Modules extends CI_Controller
 		$franchiseDetails = $this->master_model->master_get(
 			"franchise_details",
 			array(
-				'fracnhise_id' => $_GET['fracnhise_id'],
+				'franchise_id' => $_GET['franchise_id'],
 				'is_deleted' => 'false'
 			),
 			"*",
