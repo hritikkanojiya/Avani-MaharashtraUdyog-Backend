@@ -120,10 +120,6 @@ class Modules extends CI_Controller
 		Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
 		Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
 
-		echo '<pre>';
-		print_r($_POST);
-		print_r($_GET);
-		die();
 		$requestHost = $this->input->server('HTTP_HOST');
 		$allowedHost = 'backend.maharashtraudyog.com';
 
@@ -136,9 +132,19 @@ class Modules extends CI_Controller
 			return;
 		}
 
+		if (!isset(($_GET['franchise_id']))) {
+			$response = array(
+				'status' => 'error',
+				'message' => "Invalid Request"
+			);
+			echo json_encode($response);
+			return;
+		}
+
 		$franchiseDetails = $this->master_model->master_get(
 			"franchise_details",
 			array(
+				'fracnhise_id' => $_GET['fracnhise_id'],
 				'is_deleted' => 'false'
 			),
 			"*",
