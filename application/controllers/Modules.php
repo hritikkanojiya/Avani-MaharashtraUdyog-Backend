@@ -274,10 +274,10 @@ class Modules extends CI_Controller
 
 	public function get_franchise()
 	{
-		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
-		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
-			redirect("auth/");
-		}
+
+		Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
+		Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
+		Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
 
 		$this->form_validation->set_rules('franchise_id', 'Franchise ID', 'trim|required');
 
