@@ -135,7 +135,7 @@ class Modules extends CI_Controller
 		if (!isset($_GET['franchise_id'])) {
 			$response = array(
 				'status' => 'error',
-				'message' => "Invalid Request"
+				'message' => "Invalid Request [Get]"
 			);
 			echo json_encode($response);
 			return;
