@@ -114,6 +114,83 @@ class Modules extends CI_Controller
 		return;
 	}
 
+	public function get_franchise_by_id()
+	{
+		Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
+		Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
+		Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
+
+		echo '<pre>';
+		print_r($_POST);
+		print_r($_GET);
+		die();
+		$requestHost = $this->input->server('HTTP_HOST');
+		$allowedHost = 'backend.maharashtraudyog.com';
+
+		if ($requestHost != $allowedHost) {
+			$response = array(
+				'status' => 'error',
+				'message' => "Invalid Request"
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		$franchiseDetails = $this->master_model->master_get(
+			"franchise_details",
+			array(
+				'is_deleted' => 'false'
+			),
+			"*",
+			false,
+			2,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			'franchise_id',
+			'desc'
+		);
+
+		if (!$franchiseDetails) {
+			$response = array(
+				'status' => 'error',
+				'message' => "Sorry, something went wrong on server, please try again."
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		foreach ($franchiseDetails as $key => $value) {
+			$franchiseDetails[$key]['media'] = array();
+
+			$franchiseMediaDetails = $this->master_model->master_get(
+				"franchise_media",
+				array(
+					'franchise_id' => $value['franchise_id'],
+					'is_deleted' => 'false'
+				),
+				"*",
+				false,
+				2
+			);
+
+			if ($franchiseMediaDetails)
+				$franchiseDetails[$key]['media'] = $franchiseMediaDetails;
+		}
+
+		$response = array(
+			'status' => 'success',
+			'message' => "Details Fetched",
+			'franchise' => $franchiseDetails
+		);
+		echo json_encode($response);
+		return;
+	}
+
 	public function save_franchise()
 	{
 		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
@@ -274,10 +351,10 @@ class Modules extends CI_Controller
 
 	public function get_franchise()
 	{
-
-		Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
-		Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
-		Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
+		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
+		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
+			redirect("auth/");
+		}
 
 		$this->form_validation->set_rules('franchise_id', 'Franchise ID', 'trim|required');
 
