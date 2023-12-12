@@ -355,6 +355,48 @@ class Modules extends CI_Controller
 		}
 	}
 
+	public function submit_application()
+	{
+		Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
+		Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
+		Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
+
+		$franchiseDetails = $this->master_model->master_insert(
+			"franchise_application",
+			array(
+				'franchise_id' => $_POST['franchise_id'],
+				'name' => $_POST['name'],
+				'dob' => $_POST['dob'],
+				'contact' => $_POST['contact'],
+				'whatsapp' => $_POST['whatsapp'],
+				'cast' => $_POST['cast'],
+				'maritial' => $_POST['maritial'],
+				'district' => $_POST['district'],
+				'job' => $_POST['job'],
+				'job_desc' => $_POST['job_desc'],
+				'address' => $_POST['address'],
+				'acknowledgement' => $_POST['acknowledgement'],
+				'is_deleted' => 'false'
+			)
+		);
+
+		if (!$franchiseDetails) {
+			$response = array(
+				'status' => 'error',
+				'message' => "Sorry, something went wrong on server, please try again."
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		$response = array(
+			'status' => 'success',
+			'message' => "Application Submitted",
+		);
+		echo json_encode($response);
+		return;
+	}
+
 	public function get_franchise()
 	{
 		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
