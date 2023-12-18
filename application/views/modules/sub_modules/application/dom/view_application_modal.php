@@ -18,11 +18,19 @@
                             Application details for franchise on Maharsahtra Udyog</a>
                         </div>
                     </div>
-                    <div class="d-flex flex-column mb-5 fv-row">
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="">Applicant Name</span>
-                        </label>
-                        <input type="text" class="form-control " placeholder="" name="applicant_name" readonly />
+                    <div class="row mb-5 fv-row">
+                        <div class="col-12 col-md-6">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="">Applicant Name</span>
+                            </label>
+                            <input type="text" class="form-control " placeholder="" name="applicant_name" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="">Franchise Name</span>
+                            </label>
+                            <input type="text" class="form-control " placeholder="" name="franchise_name" readonly />
+                        </div>
                     </div>
                     <div class="row mb-5 fv-row">
                         <div class="col-12 col-md-4">
