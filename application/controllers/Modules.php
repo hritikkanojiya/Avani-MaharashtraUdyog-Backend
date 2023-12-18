@@ -384,6 +384,7 @@ class Modules extends CI_Controller
 
 		if (!$franchiseDetails) {
 			$response = array(
+				'query' => $this->db->last_query(),
 				'status' => 'error',
 				'message' => "Sorry, something went wrong on server, please try again."
 			);
