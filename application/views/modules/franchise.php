@@ -79,7 +79,7 @@ $adminDetails = $this->session->userdata('admin_details');
                                 </div>
                                 <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
                                     <span class="menu-link">
-                                        <a class="menu-title" href="<?= BASE_URL ?>/modules/clients">Clients</a>
+                                        <a class="menu-title" href="<?= BASE_URL ?>/modules/applications">Applications</a>
                                         <span class="menu-arrow d-lg-none"></span>
                                     </span>
                                 </div>
@@ -241,11 +241,11 @@ $adminDetails = $this->session->userdata('admin_details');
                                                 </a>
                                             </div>
                                             <div class="menu-item">
-                                                <a class="menu-link" href="<?= BASE_URL ?>/modules/clients">
+                                                <a class="menu-link" href="<?= BASE_URL ?>/modules/applications">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Clients</span>
+                                                    <span class="menu-title">Applications</span>
                                                 </a>
                                             </div>
                                             <div class="menu-item">

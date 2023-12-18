@@ -88,11 +88,11 @@ if (isset($_SERVER['HTTP_HOST']) === TRUE) {
 if ($host_name == "localhost") {
     $base_url = 'http://localhost/backend.maharashtraudyog.com';
     $live_url = 'http://localhost/maharashtraudyog.com';
-    $cdn_url = 'http://localhost/backend.maharashtraudyog.com';
+    $cdn_url = 'https://cdn.maharashtraudyog.com';
     $upload_path = 'C:/xampp/htdocs/backend.maharashtraudyog.com/public/uploads';
-    $db_host = "localhost";
+    $db_host = "34.93.49.180";
     $db_user = "root";
-    $db_pass = "";
+    $db_pass = "root@Avni$#1302";
     $db_name = "maharashtraudyog";
 } else if ($host_name == "backend.maharashtraudyog.com") {
     $base_url = 'https://backend.maharashtraudyog.com';

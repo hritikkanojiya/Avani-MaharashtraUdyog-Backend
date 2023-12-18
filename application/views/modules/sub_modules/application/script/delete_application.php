@@ -12,8 +12,8 @@ $(document).ready(() => {
         }).then((result) => {
             if (result.isConfirmed) {
                 $
-                    .post("<?= BASE_URL . '/modules/delete_franchise' ?>", {
-                        franchise_id: $(e.currentTarget).attr('data-franchise-id')
+                    .post("<?= BASE_URL . '/modules/delete_application' ?>", {
+                        application_id: $(e.currentTarget).attr('data-application-id')
                     })
                     .done(function(response) {
                         if (response) {

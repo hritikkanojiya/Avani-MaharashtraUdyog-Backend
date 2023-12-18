@@ -5,7 +5,7 @@ $adminDetails = $this->session->userdata('admin_details');
 <html lang="en">
 
 <head>
-    <title><?= APP_NAME ?>Modules | Clients</title>
+    <title><?= APP_NAME ?>Modules | Applications</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?= PUBLIC_ASSETS_URL ?>/assets/media/logos/logo.png" />
@@ -74,7 +74,8 @@ $adminDetails = $this->session->userdata('admin_details');
                                 </div>
                                 <div class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                                     <span class="menu-link">
-                                        <a class="menu-title" href="<?= BASE_URL ?>/modules/clients">Clients</a>
+                                        <a class="menu-title"
+                                            href="<?= BASE_URL ?>/modules/applications">Applications</a>
                                         <span class="menu-arrow d-lg-none"></span>
                                     </span>
                                 </div>
@@ -264,11 +265,11 @@ $adminDetails = $this->session->userdata('admin_details');
                                                 </a>
                                             </div>
                                             <div class="menu-item">
-                                                <a class="menu-link active" href="<?= BASE_URL ?>/modules/clients">
+                                                <a class="menu-link active" href="<?= BASE_URL ?>/modules/applications">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Clients</span>
+                                                    <span class="menu-title">Applications</span>
                                                 </a>
                                             </div>
                                             <div class="menu-item">
@@ -301,14 +302,79 @@ $adminDetails = $this->session->userdata('admin_details');
                                         <li class="breadcrumb-item">
                                             <span class="bullet bg-gray-500 w-5px h-2px"></span>
                                         </li>
-                                        <li class="breadcrumb-item text-muted">Clients</li>
+                                        <li class="breadcrumb-item text-muted">Applications</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div id="kt_app_content" class="app-content flex-column-fluid">
                             <div id="kt_app_content_container" class="app-container container-fluid">
-                                <h4 class="text-center">Under Development</h4>
+                                <div class="row gx-5 gx-xl-10 card pt-5 table-responsive">
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <div class="d-flex align-items-center justify-content-start position-relative">
+                                            <span class="svg-icon fs-1 position-absolute ms-4">
+                                                <i class="ki-duotone ki-abstract-33 fs-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i></span>
+                                            <input type="text" data-kt-filter="search"
+                                                class="form-control form-control-solid bg-gray-200i w-md-350px ps-14"
+                                                placeholder="Search Table" />
+                                        </div>
+                                    </div>
+                                    <table id="kt_datatable_fixed_header"
+                                        class="table border table-rounded table-row-dashed table-hover gy-5 gs-7">
+                                        <thead class="bg-gray-200 fw-bold">
+                                            <tr class="fw-semibold fs-6 text-gray-800">
+                                                <th class="mw-100px mw-lg-150px">Name</th>
+                                                <th class="mw-100px mw-lg-150px">Franchise Name</th>
+                                                <th class="mw-100px mw-lg-150px">D.O.B</th>
+                                                <th class="mw-100px mw-lg-150px">WhatsApp</th>
+                                                <th class="mw-100px mw-lg-150px">Cast</th>
+                                                <th class="mw-100px mw-lg-150px">District</th>
+                                                <th>Created Date</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            if (isset($application) && is_array($application) && count($application) > 0) {
+                                                $tableDom = "";
+                                                foreach ($application as $key => $value) {
+                                                    $tableDom .=  "<tr>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-150px'>" . $value['name'] . "</td>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-150px'>" . $value['franchiseName'] . "</td>";
+                                                    $tableDom .=  "<td>" . (new DateTime($value['dob']))->format('Y-m-d') . "</td>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-150px'>" . $value['whatsapp'] . "</td>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-150px'>" . $value['cast'] . "</td>";
+                                                    $tableDom .=  "<td class='text-truncate mw-100px mw-lg-150px'>" . $value['district'] . "</td>";
+                                                    $tableDom .=  "<td>" . (new DateTime($value['created_at']))->format('Y-m-d h:i:s A') . "</td>";
+                                                    $tableDom .=  "<td class='d-flex justify-content-evenly'>";
+                                                    $tableDom .=  " <a href='#' class='btn btn-icon btn-primary btn-sm viewData' data-application-id=" . $value['application_id'] . ">
+                                                                        <i class='ki-duotone ki-eye'>
+                                                                            <span class='path1'></span>
+                                                                            <span class='path2'></span>
+                                                                            <span class='path3'></span>
+                                                                        </i>
+                                                                    </a>
+                                                                    <a href='#' class='btn btn-icon btn-danger btn-sm deleteData'  data-application-id=" . $value['application_id'] . ">
+                                                                        <i class='ki-duotone ki-trash'>
+                                                                            <span class='path1'></span>
+                                                                            <span class='path2'></span>
+                                                                            <span class='path3'></span>
+                                                                            <span class='path4'></span>
+                                                                            <span class='path5'></span>
+                                                                        </i>
+                                                                    </a>";
+                                                    $tableDom .=  "</td>";
+                                                    $tableDom .=  "</tr>";
+                                                }
+                                                echo $tableDom;
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -326,6 +392,9 @@ $adminDetails = $this->session->userdata('admin_details');
             </div>
         </div>
     </div>
+
+    <?php $this->view('modules/sub_modules/application/dom/view_application_modal.php') ?>
+
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <i class="ki-duotone ki-arrow-up">
             <span class="path1"></span>
@@ -333,6 +402,41 @@ $adminDetails = $this->session->userdata('admin_details');
         </i>
     </div>
     <?php $this->load->view('partials/scripts.php'); ?>
+
+
+    <script>
+    $(document).ready(() => {
+        $('#franchise_details_modal_view').on('hidden.bs.modal', function(e) {
+            $('.remove-media').click();
+            franchiseAddForm[0].reset();
+            KTImageInput.createInstances();
+            $('.fv-plugins-message-container').html('')
+        })
+
+        var franchiseTableDT = $("#kt_datatable_fixed_header").DataTable({
+            "fixedHeader": {
+                "header": true,
+                "headerOffset": 5
+            },
+            "scrollX": true,
+            pageLength: 10,
+            filter: true,
+            deferRender: true,
+            scrollCollapse: true,
+            "searching": true,
+        });
+
+        const filterSearch = document.querySelector('[data-kt-filter="search"]');
+        filterSearch.addEventListener('keyup', function(e) {
+            franchiseTableDT.search(e.target.value).draw();
+        });
+    })
+    </script>
+
+    <?php $this->load->view('modules/sub_modules/application/script/view_application.php'); ?>
+
+    <?php $this->load->view('modules/sub_modules/application/script/delete_application.php'); ?>
+
 </body>
 
 </html>

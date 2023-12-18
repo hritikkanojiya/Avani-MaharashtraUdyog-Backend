@@ -697,14 +697,119 @@ class Modules extends CI_Controller
 		$this->load->view('modules/queries.php');
 	}
 
-	public function clients()
+	public function applications()
 	{
 		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
 		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
 			redirect("auth/");
 		}
 
-		$this->load->view('modules/clients.php');
+		$sqlJoin = array(
+			'franchise_details fd' => 'fd.franchise_id = fa.franchise_id|left',
+		);
+
+		$sqlSelect = "fa.*, fd.name as franchiseName";
+
+		$sqlWhere = array(
+			'fd.is_deleted' => 'false',
+			'fa.is_deleted' => 'false'
+		);
+
+		$applicationDetails = $this->master_model->master_pagination("franchise_application as fa", $sqlWhere, $sqlSelect, false, 2, $sqlJoin, false, false, false, false, false, "DESC", "fa.application_id");
+
+		$this->load->view('modules/applications.php',  array('application' => $applicationDetails));
+	}
+
+	public function get_application()
+	{
+		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
+		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
+			redirect("auth/");
+		}
+
+		$this->form_validation->set_rules('application_id', 'Application ID', 'trim|required');
+
+		if ($this->form_validation->run() === FALSE) {
+			$response = array(
+				'status' => 'error',
+				'message' => validation_errors()
+			);
+			echo json_encode($response);
+			return;
+		} else {
+
+			$application_id = !empty($this->input->post('application_id')) ? $this->input->post('application_id') : NULL;
+
+			$sqlJoin = array(
+				'franchise_details fd' => 'fd.franchise_id = fa.franchise_id|left',
+			);
+
+			$sqlSelect = "fa.*, fd.name as franchiseName";
+
+			$sqlWhere = array(
+				'fa.application_id' => $application_id,
+				'fd.is_deleted' => 'false',
+				'fa.is_deleted' => 'false'
+			);
+
+			$applicationDetails = $this->master_model->master_pagination("franchise_application as fa", $sqlWhere, $sqlSelect, false, 0, $sqlJoin, false, false, false, false, false, "DESC", "fa.application_id");
+
+			$response = array(
+				'status' => 'success',
+				'message' => 'Details Fetched',
+				'data' => array('application' => $applicationDetails[0])
+			);
+			echo json_encode($response);
+			return;
+		}
+	}
+
+	public function delete_application()
+	{
+		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
+		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
+			redirect("auth/");
+		}
+
+		$this->form_validation->set_rules('application_id', 'Application ID', 'trim|required');
+
+		if ($this->form_validation->run() === FALSE) {
+			$response = array(
+				'status' => 'error',
+				'message' => validation_errors()
+			);
+			echo json_encode($response);
+			return;
+		} else {
+
+			$application_id = !empty($this->input->post('application_id')) ? $this->input->post('application_id') : NULL;
+
+			$deleteDetails = $this->master_model->master_update(
+				"franchise_application",
+				array(
+					'is_deleted' => 'true'
+				),
+				array(
+					'application_id' => $application_id
+				)
+			);
+
+			if (!$deleteDetails) {
+				$response = array(
+					'status' => 'error',
+					'message' => "Sorry, something went wrong on server, please try again."
+				);
+				echo json_encode($response);
+				return;
+			}
+
+			$response = array(
+				'status' => 'success',
+				'message' => 'Details Deleted'
+			);
+			echo json_encode($response);
+			return;
+		}
 	}
 
 	private function get_error_message($messageString)

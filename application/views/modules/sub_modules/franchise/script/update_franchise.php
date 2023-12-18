@@ -213,7 +213,7 @@ $(document).ready(() => {
         $(e.currentTarget).val($(e.currentTarget).prop('checked'))
     })
 
-    $('.editData').on('click', (e) => {
+    $(document).on('click', '.editData', (e) => {
         $
             .post("<?= BASE_URL . '/modules/get_franchise' ?>", {
                 franchise_id: $(e.currentTarget).attr('data-franchise-id')
