@@ -373,7 +373,9 @@ class Modules extends CI_Controller
 				'maritial' => $_POST['maritial'],
 				'district' => $_POST['district'],
 				'job' => $_POST['job'],
+				'comp_name' => $_POST['comp_name'],
 				'job_desc' => $_POST['job_desc'],
+				'intrest' => $_POST['intrest'],
 				'address' => $_POST['address'],
 				'acknowledgement' => $_POST['acknowledgement'],
 				'is_deleted' => 'false'

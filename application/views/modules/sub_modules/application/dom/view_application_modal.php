@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="row mb-5 fv-row">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="">Cast</span>
                             </label>
@@ -59,7 +59,7 @@
                                 <input type="text" class="form-control " placeholder="" name="cast" readonly />
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="">Maritial Status</span>
                             </label>
@@ -67,9 +67,7 @@
                                 <input type="text" class="form-control " placeholder="" name="contact" readonly />
                             </div>
                         </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="">District</span>
                             </label>
@@ -77,6 +75,8 @@
                                 <input type="text" class="form-control " placeholder="" name="district" readonly />
                             </div>
                         </div>
+                    </div>
+                    <div class="row mb-5">
                         <div class="col-12 col-md-6">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="">Job</span>
@@ -85,12 +85,28 @@
                                 <input type="text" class="form-control " placeholder="" name="job" readonly />
                             </div>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="">Company Name</span>
+                            </label>
+                            <div class="py-2 mt-0 text-center">
+                                <input type="text" class="form-control " placeholder="" name="comp_name" readonly />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="">Job Description</span>
+                            </label>
+                            <div class="py-2 mt-0 text-center">
+                                <input type="text" class="form-control " placeholder="" name="job_desc" readonly />
+                            </div>
+                        </div>
                     </div>
                     <div class="row mb-5">
                         <div class="col-12 col-md-6 fv-row">
-                            <label class="fs-6 fw-semibold mb-2 ">Job Details</label>
+                            <label class="fs-6 fw-semibold mb-2 ">Intrest</label>
                             <div class="py-2 mt-0 text-center">
-                                <input type="text" class="form-control " placeholder="" name="job_details" readonly />
+                                <input type="text" class="form-control " placeholder="" name="intrest" readonly />
                             </div>
                         </div>
                         <div class="col-12 col-md-6 fv-row">
