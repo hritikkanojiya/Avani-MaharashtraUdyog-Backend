@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="row mb-5">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="">Job</span>
                             </label>
@@ -85,7 +85,7 @@
                                 <input type="text" class="form-control " placeholder="" name="job" readonly />
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="">Company Name</span>
                             </label>
@@ -93,7 +93,7 @@
                                 <input type="text" class="form-control " placeholder="" name="comp_name" readonly />
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="">Job Description</span>
                             </label>
