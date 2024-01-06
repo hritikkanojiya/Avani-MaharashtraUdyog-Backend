@@ -693,7 +693,7 @@ class Modules extends CI_Controller
 			'status' => 'success',
 			'message' => 'Details Updated',
 			'file_name' => $newFilename,
-			'file_url' => APP_ENV == "prod" ? CDN_URL : BASE_URL . '/public/uploads/master/' . $newFilename
+			'file_url' => APP_ENV != "prod" ? CDN_URL . '/public/uploads/master/' . $newFilename : BASE_URL . '/public/uploads/master/' . $newFilename
 		);
 		echo json_encode($response);
 		return;
