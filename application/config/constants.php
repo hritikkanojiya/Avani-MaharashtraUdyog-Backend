@@ -105,6 +105,7 @@ if ($host_name == "localhost") {
     $db_name = "maharashtraudyog";
 }
 
+define("APP_ENV", $host_name == "backend.maharashtraudyog.com" ? "prod" : "dev");
 define("BASE_URL", $base_url);
 define("LIVE_URL", $live_url);
 define("PUBLIC_ASSETS_URL", $base_url . "/public");

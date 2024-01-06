@@ -1,4 +1,7 @@
 <?php
+
+redirect(BASE_URL);
+
 $adminDetails = $this->session->userdata('admin_details');
 ?>
 <!DOCTYPE html>

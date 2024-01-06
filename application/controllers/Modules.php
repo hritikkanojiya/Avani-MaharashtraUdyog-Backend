@@ -230,45 +230,15 @@ class Modules extends CI_Controller
 				$franchise_logo = $newFilename;
 			}
 
-			if (!empty($_FILES['franchise_image_gallery_repeat'])) {
-				foreach ($_FILES['franchise_image_gallery_repeat']['name'] as $index => $file) {
-					if (isset($_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'])) {
-						$fileName = $_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'];
-						$fileError = $_FILES['franchise_image_gallery_repeat']['error'][$index]['franchise_gallery_image'];
-						$fileTempName = $_FILES['franchise_image_gallery_repeat']['tmp_name'][$index]['franchise_gallery_image'];
-						if ($fileError == 0) {
-							$uploadPath = UPLOAD_DIR . "/franchise/images/";
-
-							if (!is_dir($uploadPath)) {
-								mkdir($uploadPath, 0700, true);
-							}
-
-							$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-							move_uploaded_file($fileTempName, $uploadPath . $newFilename);
-							array_push($franchise_gallery_images, array('original_name' => $fileName, 'hash_name' => $newFilename));
-						}
-					}
+			if (!empty($_POST['franchise_image_gallery_repeat'])) {
+				foreach ($_POST['franchise_image_gallery_repeat'] as $key => $value) {
+					array_push($franchise_gallery_images, array('hash_name' => $value['franchise_image_gallery']));
 				}
 			}
 
-			if (!empty($_FILES['franchise_video_gallery_repeat'])) {
-				foreach ($_FILES['franchise_video_gallery_repeat']['name'] as $index => $file) {
-					if (isset($_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'])) {
-						$fileName = $_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'];
-						$fileError = $_FILES['franchise_video_gallery_repeat']['error'][$index]['franchise_gallery_video'];
-						$fileTempName = $_FILES['franchise_video_gallery_repeat']['tmp_name'][$index]['franchise_gallery_video'];
-						if ($fileError == 0) {
-							$uploadPath = UPLOAD_DIR . "/franchise/videos/";
-
-							if (!is_dir($uploadPath)) {
-								mkdir($uploadPath, 0700, true);
-							}
-
-							$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-							move_uploaded_file($fileTempName, $uploadPath . $newFilename);
-							array_push($franchise_gallery_videos, array('original_name' => $fileName, 'hash_name' => $newFilename));
-						}
-					}
+			if (!empty($_POST['franchise_video_gallery_repeat'])) {
+				foreach ($_POST['franchise_video_gallery_repeat'] as $key => $value) {
+					array_push($franchise_gallery_videos, array('video_url' => $value['franchise_gallery_video']));
 				}
 			}
 
@@ -327,7 +297,6 @@ class Modules extends CI_Controller
 					"franchise_media",
 					array(
 						'franchise_id' => $franchiseDetails,
-						'original_name' => $value['original_name'],
 						'hash_name' => $value['hash_name'],
 						'type' => 'image',
 					)
@@ -339,8 +308,7 @@ class Modules extends CI_Controller
 					"franchise_media",
 					array(
 						'franchise_id' => $franchiseDetails,
-						'original_name' => $value['original_name'],
-						'hash_name' => $value['hash_name'],
+						'video_url' => $value['video_url'],
 						'type' => 'video',
 					)
 				);
@@ -495,27 +463,6 @@ class Modules extends CI_Controller
 			}
 
 			/*
-			if (!empty($_FILES['franchise_image_gallery_repeat'])) {
-				foreach ($_FILES['franchise_image_gallery_repeat']['name'] as $index => $file) {
-					if (isset($_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'])) {
-						$fileName = $_FILES['franchise_image_gallery_repeat']['name'][$index]['franchise_gallery_image'];
-						$fileError = $_FILES['franchise_image_gallery_repeat']['error'][$index]['franchise_gallery_image'];
-						$fileTempName = $_FILES['franchise_image_gallery_repeat']['tmp_name'][$index]['franchise_gallery_image'];
-						if ($fileError == 0) {
-							$uploadPath = UPLOAD_DIR . "/franchise/images/";
-
-							if (!is_dir($uploadPath)) {
-								mkdir($uploadPath, 0700, true);
-							}
-
-							$newFilename = $this->get_random_hash() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-							move_uploaded_file($fileTempName, $uploadPath . $newFilename);
-							array_push($franchise_gallery_images, array('original_name' => $fileName, 'hash_name' => $newFilename));
-						}
-					}
-				}
-			}
-
 			if (!empty($_FILES['franchise_video_gallery_repeat'])) {
 				foreach ($_FILES['franchise_video_gallery_repeat']['name'] as $index => $file) {
 					if (isset($_FILES['franchise_video_gallery_repeat']['name'][$index]['franchise_gallery_video'])) {
@@ -576,6 +523,32 @@ class Modules extends CI_Controller
 				'is_deleted' => 'false'
 			);
 
+			$this->master_model->master_update(
+				"franchise_media",
+				array(
+					'is_deleted' => 'true'
+				),
+				array(
+					'franchise_id' => $franchise_id_update
+				)
+			);
+			
+			if (!empty($_POST['franchise_image_gallery_update_repeat'])) {
+				foreach ($_POST['franchise_image_gallery_update_repeat'] as $index => $file) {
+					if (isset($_POST['franchise_image_gallery_update_repeat'][$index]['franchise_image_gallery'])) {
+						$fileName = $_POST['franchise_image_gallery_update_repeat'][$index]['franchise_image_gallery'];
+						$this->master_model->master_insert(
+							"franchise_media",
+							array(
+								'franchise_id' => $franchise_id_update,
+								'original_name' => NULL,
+								'hash_name' => $fileName,
+								'type' => 'image',
+							)
+						);
+					}
+				}
+			}
 
 			if ($franchise_logo != "") {
 				$arrayToUpdate['logo'] = $franchise_logo;
@@ -687,6 +660,43 @@ class Modules extends CI_Controller
 			echo json_encode($response);
 			return;
 		}
+	}
+
+	public function upload_file()
+	{
+		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
+		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
+			redirect("auth/");
+		}
+
+		$newFilename = "";
+
+		if (isset($_FILES['uploaded_file']) && $_FILES['uploaded_file']['error'] == 0) {
+			$uploadPath = UPLOAD_DIR . "/" . "master/";
+
+			if (!is_dir($uploadPath)) {
+				mkdir($uploadPath, 0700, true);
+			}
+
+			$newFilename = $this->get_random_hash() . '.' . pathinfo($_FILES['uploaded_file']['name'], PATHINFO_EXTENSION);
+			move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $uploadPath . $newFilename);
+		} else {
+			$response = array(
+				'status' => 'error',
+				'message' => "Sorry, something went wrong on server, please try again."
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		$response = array(
+			'status' => 'success',
+			'message' => 'Details Updated',
+			'file_name' => $newFilename,
+			'file_url' => APP_ENV == "prod" ? CDN_URL : BASE_URL . '/public/uploads/master/' . $newFilename
+		);
+		echo json_encode($response);
+		return;
 	}
 
 	public function queries()

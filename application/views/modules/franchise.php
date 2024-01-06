@@ -83,7 +83,7 @@ $adminDetails = $this->session->userdata('admin_details');
                                         <span class="menu-arrow d-lg-none"></span>
                                     </span>
                                 </div>
-                                <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                                <div class="menu-item menu-lg-down-accordion me-0 me-lg-2 d-none">
                                     <a class="menu-link" href="<?= BASE_URL ?>/modules/queries">
                                         <span class="menu-title">Queries</span>
                                         <span class="menu-arrow d-lg-none"></span>
@@ -248,7 +248,7 @@ $adminDetails = $this->session->userdata('admin_details');
                                                     <span class="menu-title">Applications</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item">
+                                            <div class="menu-item d-none">
                                                 <a class="menu-link" href="<?= BASE_URL ?>/modules/queries">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
@@ -371,6 +371,7 @@ $adminDetails = $this->session->userdata('admin_details');
         </div>
     </div>
 
+    <?php $this->view('modules/sub_modules/franchise/dom/file_upload_modal.php') ?>
     <?php $this->view('modules/sub_modules/franchise/dom/add_franchise_modal.php') ?>
     <?php $this->view('modules/sub_modules/franchise/dom/view_franchise_modal.php') ?>
     <?php $this->view('modules/sub_modules/franchise/dom/update_franchise_modal.php') ?>
@@ -388,6 +389,7 @@ $adminDetails = $this->session->userdata('admin_details');
         $(document).ready(() => {
             var textAreas = $('textarea[data-kt-autosize]');
             var franchiseAddForm = $("#franchise_add_details_form");
+            var fileUploadForm = $("#franchise_image_upload_form");
 
             textAreas.maxlength({
                 alwaysShow: true,
@@ -426,11 +428,16 @@ $adminDetails = $this->session->userdata('admin_details');
                 isFirstItemUndeletable: true
             });
 
+            $('#franchise_details_modal_update').on('hidden.bs.modal', function(e) {
+                location.reload();
+            })
+
             $('#franchise_details_modal_add').on('hidden.bs.modal', function(e) {
-                $('.remove-media').click();
-                franchiseAddForm[0].reset();
-                KTImageInput.createInstances();
-                $('.fv-plugins-message-container').html('')
+                location.reload();
+                // $('.remove-media').click();
+                // franchiseAddForm[0].reset();
+                // KTImageInput.createInstances();
+                // $('.fv-plugins-message-container').html('')
             })
 
             $('#franchise_details_modal_view').on('hidden.bs.modal', function(e) {
@@ -467,6 +474,8 @@ $adminDetails = $this->session->userdata('admin_details');
     <?php $this->load->view('modules/sub_modules/franchise/script/delete_franchise.php'); ?>
 
     <?php $this->load->view('modules/sub_modules/franchise/script/update_franchise.php'); ?>
+
+    <?php $this->load->view('modules/sub_modules/franchise/script/file_upload.php'); ?>
 
 </body>
 

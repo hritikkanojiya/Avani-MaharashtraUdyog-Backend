@@ -129,7 +129,7 @@
                 })
             },
         });
-
+        
         addFranchiseFormSubmitBtn.on("click", function(event) {
             event.preventDefault();
             addFranchiseFormValidation
@@ -155,7 +155,7 @@
                                         Swal.fire({
                                             text: parsedResponse?.message ?
                                                 parsedResponse
-                                                .message : "Sorry, the details are incorrect, please try again.",
+                                                .message : "Sorry, unable to get response, please try again.",
                                             icon: "error",
                                             buttonsStyling: false,
                                             confirmButtonText: "Ok, got it!",
@@ -183,7 +183,7 @@
                                     });
                                 } else {
                                     Swal.fire({
-                                        text: "Sorry, looks like there are some errors detected, please try again. 3",
+                                        text: "Sorry, looks like there are some errors detected, please try again.",
                                         icon: "error",
                                         buttonsStyling: false,
                                         confirmButtonText: "Ok, got it!",
@@ -195,7 +195,7 @@
                             })
                             .fail(function() {
                                 Swal.fire({
-                                    text: "Sorry, looks like there are some errors detected, please try again. 2",
+                                    text: "Sorry, xhr request failed, please try again.",
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "Ok, got it!",
@@ -210,7 +210,7 @@
                             });
                     } else {
                         Swal.fire({
-                            text: "Sorry, looks like there are some errors detected, please try again. 1",
+                            text: "Sorry, looks like there are some incorrect values in the form, please try again.",
                             icon: "error",
                             buttonsStyling: false,
                             confirmButtonText: "Ok, got it!",

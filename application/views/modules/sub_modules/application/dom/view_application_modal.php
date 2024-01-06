@@ -129,7 +129,7 @@
                         <div class="col-12 fv-row">
                             <label class="fs-6 fw-semibold mb-2 ">Address</label>
                             <div class="py-2 mt-0">
-                                <textarea class="form-control" name="address" rows="5" placeholder="Details"
+                                <textarea class="form-control" name="address" rows="6" placeholder="Details"
                                     readonly></textarea>
                             </div>
                         </div>

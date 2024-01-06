@@ -54,7 +54,6 @@ $(document).ready(() => {
                         .val(parsedResponse?.data?.application?.acknowledgement)
                     $('#application_details_modal_view textarea[name="address"]')
                         .val(parsedResponse?.data?.application?.address)
-
                     $('#application_details_modal_view').modal('show')
 
                 } else {

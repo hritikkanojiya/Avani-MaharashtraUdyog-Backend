@@ -31,9 +31,9 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">Franchise Logo</span>
                             </label>
-                            <div class="py-2 mt-0 text-center">
-                                <div class="symbol symbol-75px symbol-md-125px">
-                                    <img src="<?= PUBLIC_ASSETS_URL ?>/assets/media/avatars/300-6.jpg"
+                            <div class="pb-2 mt-0 text-center">
+                                <div class="symbol symbol-160px">
+                                    <img class="rounded-4" src="<?= PUBLIC_ASSETS_URL ?>/assets/media/avatars/300-6.jpg"
                                         name="franchise_logo" alt="" />
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Franchise Details</label>
                             <div class="py-2 mt-0">
                                 <textarea class="form-control" name="franchise_details" maxlength="2048"
-                                    data-kt-autosize="true" rows="5" id="franchise_details"
+                                    data-kt-autosize="true" rows="6" id="franchise_details"
                                     placeholder="Franchise Details" disabled></textarea>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Business Details</label>
                             <div class="py-2 mt-0">
                                 <textarea class="form-control" name="franchise_business_details" maxlength="2048"
-                                    data-kt-autosize="true" rows="5" id="franchise_business_details"
+                                    data-kt-autosize="true" rows="6" id="franchise_business_details"
                                     placeholder="Business Details" disabled></textarea>
                             </div>
                         </div>
@@ -60,12 +60,12 @@
                             <label class="fs-6 fw-semibold mb-2 required">Investment Details</label>
                             <div class="py-2 mt-0">
                                 <textarea class="form-control" name="franchise_investment_details" maxlength="2048"
-                                    data-kt-autosize="true" rows="5" id="franchise_investment_details"
+                                    data-kt-autosize="true" rows="6" id="franchise_investment_details"
                                     placeholder="Investment Details" disabled></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-5 fv-row">
+                    <div class="row mb-5 fv-row franchiseImageGalleryMaster d-none">
                         <div id="franchise_image_gallery_repeat">
                             <div class="row mb-5">
                                 <div class="col-12">
@@ -77,7 +77,7 @@
                             <div class="row franchise_image_repeat"></div>
                         </div>
                     </div>
-                    <div class="row mb-5 fv-row">
+                    <div class="row mb-5 fv-row franchiseVideoGalleryMaster d-none">
                         <div id="franchise_video_gallery_repeat">
                             <div class="row mb-3">
                                 <div class="col-12 col-md-10">
@@ -94,7 +94,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Royalty commission</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" name="franchise_royalty_comm"
-                                    maxlength="2048" data-kt-autosize="true" rows="5"
+                                    maxlength="2048" data-kt-autosize="true" rows="6"
                                     placeholder="Franchise Royalty Commision" disabled></textarea>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Anticipated Return on Investment</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" name="franchise_roi" maxlength="2048"
-                                    data-kt-autosize="true" rows="5"
+                                    data-kt-autosize="true" rows="6"
                                     placeholder="Anticipated Return on Investment in Percentage (%)"
                                     disabled></textarea>
                             </div>
@@ -114,7 +114,7 @@
                                 Franchise</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" name="franchise_payback" maxlength="2048"
-                                    data-kt-autosize="true" rows="5"
+                                    data-kt-autosize="true" rows="6"
                                     placeholder="Payback period of the Capital for Franchise" disabled></textarea>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
                                 Franchise</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" name="franchise_property" maxlength="2048"
-                                    data-kt-autosize="true" rows="5" placeholder="Franchise property type"
+                                    data-kt-autosize="true" rows="6" placeholder="Franchise property type"
                                     disabled></textarea>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Floor Area</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" name="franchise_floor_area" maxlength="2048"
-                                    data-kt-autosize="true" rows="5" placeholder="Floor Area in Square Feet (Sq/Feet)"
+                                    data-kt-autosize="true" rows="6" placeholder="Floor Area in Square Feet (Sq/Feet)"
                                     disabled></textarea>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Preferred Location Area</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" name="franchise_pref_location"
-                                    maxlength="2048" data-kt-autosize="true" rows="5"
+                                    maxlength="2048" data-kt-autosize="true" rows="6"
                                     placeholder="Preferred Location area for Franchisee Outlet" disabled></textarea>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Franchise Training Location</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" data-kt-autosize="true" maxlength="2048"
-                                    name="franchise_training_loc" rows="5" placeholder="Franchise Training Location"
+                                    name="franchise_training_loc" rows="6" placeholder="Franchise Training Location"
                                     disabled></textarea>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                             <label class="fs-6 fw-semibold mb-2 required">Duration of Franchise Term</label>
                             <div class="py-2 mt-0">
                                 <textarea type="text" class="form-control" maxlength="2048" data-kt-autosize="true"
-                                    name="franchise_term_duration" rows="5" placeholder="Duration of Franchise Term"
+                                    name="franchise_term_duration" rows="6" placeholder="Duration of Franchise Term"
                                     disabled></textarea>
                             </div>
                         </div>
