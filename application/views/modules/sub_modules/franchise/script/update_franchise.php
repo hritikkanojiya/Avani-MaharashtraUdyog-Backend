@@ -316,7 +316,7 @@
                                         <div class="row card border-gray-300 mx-1 fileUploadMaster">
                                             <div class="col-12 my-2">
                                                 <div class="symbol symbol-150px">
-                                                    <img class="filePreview" src="<?php echo APP_ENV == "prod" ? CDN_URL : CDN_URL ?>/public/uploads/master/${element.hash_name}" alt="" />
+                                                    <img class="filePreview" src="<?php echo APP_ENV == "prod" ? CDN_URL : BASE_URL?>/public/uploads/master/${element.hash_name}" alt="" />
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">

@@ -70,7 +70,7 @@
                                     imageHTML += `<div class="col-12 col-md-3 mb-5 p-0 text-center">
                                                     <div class="card border-gray-300 mx-1">
                                                         <div class="symbol symbol-150px">
-                                                            <img src="<?php echo APP_ENV == "prod" ? CDN_URL : CDN_URL ?>/public/uploads/master/${element.hash_name}" alt="" />
+                                                            <img src="<?php echo APP_ENV == "prod" ? CDN_URL : BASE_URL?>/public/uploads/master/${element.hash_name}" alt="" />
                                                         </div>
                                                     </div>
                                                 </div>`;
