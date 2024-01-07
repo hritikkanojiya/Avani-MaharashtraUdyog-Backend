@@ -59,11 +59,17 @@ class Modules extends CI_Controller
 			return;
 		}
 
+		$search = isset($_GET['search-franchise']) ? $_GET['search-franchise'] : NULL;
+
+		$sqlWhere = "is_deleted = 'false'";
+
+		if($search != NULL){
+			$sqlWhere .= " AND (`name` LIKE '%$search%') AND (`name` LIKE '%$franchise_details%')";
+		}
+
 		$franchiseDetails = $this->master_model->master_get(
 			"franchise_details",
-			array(
-				'is_deleted' => 'false'
-			),
+			$sqlWhere,
 			"*",
 			false,
 			2,
