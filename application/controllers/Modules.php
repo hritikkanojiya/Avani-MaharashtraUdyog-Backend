@@ -59,7 +59,7 @@ class Modules extends CI_Controller
 			return;
 		}
 
-		$search = isset($_GET['search']) ? $_GET['search'] : NULL;
+		$search = isset($_GET['search']) && $_GET['search'] != "" ? $_GET['search'] : NULL;
 
 		$sqlWhere = "is_deleted = 'false'";
 
