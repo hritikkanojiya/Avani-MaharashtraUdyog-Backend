@@ -114,7 +114,6 @@ class Modules extends CI_Controller
 		$response = array(
 			'status' => 'success',
 			'message' => "Details Fetched",
-			'query' => $this->db->last_query(),
 			'franchise' => $franchiseDetails
 		);
 		echo json_encode($response);
