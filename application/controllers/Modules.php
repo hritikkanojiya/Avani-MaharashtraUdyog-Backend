@@ -64,7 +64,7 @@ class Modules extends CI_Controller
 		$sqlWhere = "is_deleted = 'false'";
 
 		if($search != NULL){
-			$sqlWhere .= " AND (`name` LIKE '%$search%') AND (`name` LIKE '%$franchise_details%')";
+			$sqlWhere .= " AND (`name` LIKE '%$search%')";
 		}
 
 		$franchiseDetails = $this->master_model->master_get(
