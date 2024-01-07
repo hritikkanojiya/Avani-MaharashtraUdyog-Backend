@@ -29,7 +29,7 @@ $(document).ready(() => {
                     $('#application_details_modal_view input[name="applicant_name"]')
                         .val(parsedResponse?.data?.application?.name)
                     $('#application_details_modal_view input[name="franchise_name"]')
-                        .val(parsedResponse?.data?.application?.franchiseName)
+                        .val(parsedResponse?.data?.application?.franchiseName != null ? parsedResponse?.data?.application?.franchiseName : "NA")
                     $('#application_details_modal_view input[name="dob"]')
                         .val(parsedResponse?.data?.application?.dob)
                     $('#application_details_modal_view input[name="contact"]')

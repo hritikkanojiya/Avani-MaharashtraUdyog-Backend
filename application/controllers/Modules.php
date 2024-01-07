@@ -41,6 +41,36 @@ class Modules extends CI_Controller
 		$this->load->view('modules/franchise.php', array('franchise' => $franchiseDetails));
 	}
 
+	public function loan_application()
+	{
+		$isAdminLoggedIn = $this->session->userdata('admin_logged_in');
+		if (!(isset($isAdminLoggedIn) && $isAdminLoggedIn == 1)) {
+			redirect("auth/");
+		}
+
+		$franchiseDetails = $this->master_model->master_get(
+			"franchise_application",
+			array(
+				'franchise_id' => NULL,
+				'is_deleted' => 'false'
+			),
+			"*",
+			false,
+			2,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			'application_id',
+			'desc'
+		);
+
+		$this->load->view('modules/loan.php', array('application' => $franchiseDetails));
+	}
+
 	public function get_all_franchise()
 	{
 		Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
@@ -771,6 +801,13 @@ class Modules extends CI_Controller
 			);
 
 			$applicationDetails = $this->master_model->master_pagination("franchise_application as fa", $sqlWhere, $sqlSelect, false, 0, $sqlJoin, false, false, false, false, false, "DESC", "fa.application_id");
+
+			if(!$applicationDetails){
+				$applicationDetails = $this->master_model->master_pagination("franchise_application as fa",array(
+					'fa.application_id' => $application_id,
+					'fa.is_deleted' => 'false'
+				), "fa.*", false, 0, false, false, false, false, false, false, "DESC", "fa.application_id");
+			}
 
 			$response = array(
 				'status' => 'success',

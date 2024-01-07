@@ -67,9 +67,9 @@ $adminDetails = $this->session->userdata('admin_details');
                                         <span class="menu-arrow d-lg-none"></span>
                                     </span>
                                 </div>
-                                <div class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                                    <a class="menu-link" href="<?= BASE_URL ?>/modules/queries">
-                                        <span class="menu-title">Queries</span>
+                                <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                                    <a class="menu-link" href="<?= BASE_URL ?>/modules/loan_application">
+                                        <span class="menu-title">Loan Application</span>
                                         <span class="menu-arrow d-lg-none"></span>
                                     </a>
                                 </div>
@@ -233,11 +233,11 @@ $adminDetails = $this->session->userdata('admin_details');
                                                 </a>
                                             </div>
                                             <div class="menu-item">
-                                                <a class="menu-link active" href="<?= BASE_URL ?>/modules/queries">
+                                                <a class="menu-link" href="<?= BASE_URL ?>/modules/loan_application">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Queries</span>
+                                                    <span class="menu-title">Loan Applications</span>
                                                 </a>
                                             </div>
                                         </div>
