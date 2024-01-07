@@ -338,7 +338,7 @@ class Modules extends CI_Controller
 		$franchiseDetails = $this->master_model->master_insert(
 			"franchise_application",
 			array(
-				'franchise_id' => $_POST['franchise_id'],
+				'franchise_id' => isset($_POST['franchise_id']) ? $_POST['franchise_id'] : NULL,
 				'name' => $_POST['name'],
 				'dob' => $_POST['dob'],
 				'contact' => $_POST['contact'],
